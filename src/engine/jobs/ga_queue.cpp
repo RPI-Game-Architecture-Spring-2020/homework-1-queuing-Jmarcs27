@@ -20,8 +20,6 @@ ga_queue::ga_queue(int node_count)
 	queue = new queue_t();
 	node_t *node = new node_t();
 	queue->head = node, queue->tail = node;
-	queue->h_lock.unlock(), queue->t_lock.unlock();
-
 }
 
 ga_queue::~ga_queue()
@@ -81,7 +79,7 @@ bool ga_queue::pop(void** data)
 		queue->h_lock.unlock();
 		return false;
 	}
-	*data = new_head;
+	*data = new_head->data;
 	queue->head = new_head;
 	queue->h_lock.unlock();
 	free(node);
